@@ -224,13 +224,14 @@ const App = () => {
                 <AppMenu model={menu} onMenuItemClick={onMenuItemClick} layoutColorMode={layoutColorMode} />
             </div>}
 
+            <Route path="/login" component={LoginPage} />
+
             <div className="layout-main-container">
                 <div className="layout-main">
                     <Switch>
                         <ProtectedRoute path="/" exact component={Dashboard} />
                         <ProtectedRoute path="/uploadForm" component={RetornFile} />
                         <ProtectedRoute path="/tableFile" component={TableFile} />
-                        <Route path="/login" component={LoginPage} />
                         <Route path="/register" component={RegisterPage} />
                     </Switch>
                 </div>
