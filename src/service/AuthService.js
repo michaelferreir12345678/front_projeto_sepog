@@ -1,48 +1,44 @@
-const API_URL = 'http://127.0.0.1:5000/';
+// src/service/authService.js
+const API_URL = 'http://127.0.0.1:5000';
 
-export const register = async (username, password) => {
+export const register = async (user) => {
     const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify(user)
     });
     return response.json();
 };
 
-export const login = async (username, password) => {
+export const login = async (credentials) => {
     const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify(credentials)
     });
-
-    if (response.ok) {
-        const data = await response.json();
+    const data = await response.json();
+    if (data.token) {
         localStorage.setItem('user', JSON.stringify(data));
-        return data; // Retorna os dados apenas uma vez, não precisa chamar response.json() novamente
-    } else {
-        throw new Error('Failed to login'); // Trate erros de login aqui
     }
+    return data;
 };
 
-
-export const logout = async () => {
-    await fetch(`${API_URL}/logout`, { method: 'GET' });
+export const logout = () => {
     localStorage.removeItem('user');
 };
 
 export const getProfile = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    const response = await fetch(`${API_URL}/profile`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.token}`
-        }
-    });
-    return response.json();
+    if (user && user.token) {
+        const response = await fetch(`${API_URL}/profile`, {
+            headers: { 'Authorization': `Bearer ${user.token}` }
+        });
+        return response.json();
+    }
+    return null;
 };
 
 export const isAuthenticated = () => {
-    return localStorage.getItem('user') !== null;
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user && user.token;
 };

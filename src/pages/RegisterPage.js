@@ -1,18 +1,42 @@
-import React from 'react';
-import AuthForm from '../components/login/AuthForm';
-import { register } from '../service/AuthService';
+// src/pages/RegisterPage.js
 
-const RegisterPage = ({ history }) => {
-    const handleRegister = async (username, password) => {
-        const response = await register(username, password);
-        if (response.message === 'User created successfully') {
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+const RegisterPage = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const history = useHistory();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            // Chamada para o serviço de registro (não implementado aqui)
+            // const response = await registerUser(username, password);
             history.push('/login');
-        } else {
-            alert('Registration failed');
+        } catch (error) {
+            setError('Registration failed. Please try again.');
         }
     };
 
-    return <AuthForm onSubmit={handleRegister} buttonText="Register" />;
+    return (
+        <div className="register-page">
+            <h2>Register</h2>
+            {error && <p>{error}</p>}
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Username</label>
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    );
 };
 
 export default RegisterPage;

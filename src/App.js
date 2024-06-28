@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import { Route, useLocation } from 'react-router-dom';
+import { Route, useLocation, Switch } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
 import { AppTopbar } from './AppTopbar';
@@ -9,7 +9,6 @@ import { AppMenu } from './AppMenu';
 import { AppConfig } from './AppConfig';
 
 import Dashboard from './components/Dashboard';
-// import UploadForm from './components/UploadForm';
 import TableFile from './components/TableFile';
 import RetornFile from './pages/RetornFile';
 
@@ -28,11 +27,9 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProtectedRoute from './components/login/ProtectedRoute';
 
-// import DashboardPowerBI from './components/DashboardPowerBI';
-
 const App = () => {
     const [layoutMode, setLayoutMode] = useState('static');
-    const [layoutColorMode, setLayoutColorMode] = useState('light')
+    const [layoutColorMode, setLayoutColorMode] = useState('light');
     const [inputStyle, setInputStyle] = useState('outlined');
     const [ripple, setRipple] = useState(true);
     const [staticMenuInactive, setStaticMenuInactive] = useState(false);
@@ -61,20 +58,20 @@ const App = () => {
 
     const onInputStyleChange = (inputStyle) => {
         setInputStyle(inputStyle);
-    }
+    };
 
     const onRipple = (e) => {
         PrimeReact.ripple = e.value;
-        setRipple(e.value)
-    }
+        setRipple(e.value);
+    };
 
     const onLayoutModeChange = (mode) => {
-        setLayoutMode(mode)
-    }
+        setLayoutMode(mode);
+    };
 
     const onColorModeChange = (mode) => {
-        setLayoutColorMode(mode)
-    }
+        setLayoutColorMode(mode);
+    };
 
     const onWrapperClick = (event) => {
         if (!menuClick) {
@@ -88,7 +85,7 @@ const App = () => {
 
         mobileTopbarMenuClick = false;
         menuClick = false;
-    }
+    };
 
     const onToggleMenuClick = (event) => {
         menuClick = true;
@@ -101,113 +98,107 @@ const App = () => {
 
                 setOverlayMenuActive((prevState) => !prevState);
                 setMobileMenuActive(false);
-            }
-            else if (layoutMode === 'static') {
+            } else if (layoutMode === 'static') {
                 setStaticMenuInactive((prevState) => !prevState);
             }
-        }
-        else {
+        } else {
             setMobileMenuActive((prevState) => !prevState);
         }
 
         event.preventDefault();
-    }
+    };
 
     const onSidebarClick = () => {
         menuClick = true;
-    }
+    };
 
     const onMobileTopbarMenuClick = (event) => {
         mobileTopbarMenuClick = true;
 
         setMobileTopbarMenuActive((prevState) => !prevState);
         event.preventDefault();
-    }
+    };
 
     const onMobileSubTopbarMenuClick = (event) => {
         mobileTopbarMenuClick = true;
 
         event.preventDefault();
-    }
+    };
 
     const onMenuItemClick = (event) => {
         if (!event.item.items) {
             setOverlayMenuActive(false);
             setMobileMenuActive(false);
         }
-    }
+    };
+
     const isDesktop = () => {
         return window.innerWidth >= 992;
-    }
+    };
 
     const menu = [
         {
             label: 'Home',
-            items: [{
-                label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'
-            }]
+            items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' }],
         },
         {
-            label: 'Menu', icon: 'pi pi-fw pi-search',
+            label: 'Menu',
+            icon: 'pi pi-fw pi-search',
             items: [
                 {
-                    label: 'Arquivos bancários', icon: 'pi pi-fw pi-bookmark',
+                    label: 'Arquivos bancários',
+                    icon: 'pi pi-fw pi-bookmark',
                     items: [
+                        { label: 'Remessa', icon: 'pi pi-fw pi-bookmark' },
+                        { label: 'Retorno', icon: 'pi pi-fw pi-bookmark', to: '/uploadForm' },
                         {
-                            label: 'Remessa', icon: 'pi pi-fw pi-bookmark',
-                        },
-                        {
-                            label: 'Retorno', icon: 'pi pi-fw pi-bookmark', to:'/uploadForm',
-                        },
-                        {
-                            label: 'Conferência', icon: 'pi pi-fw pi-bookmark',
+                            label: 'Conferência',
+                            icon: 'pi pi-fw pi-bookmark',
                             items: [
                                 { label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark' },
-                                { label: 'Submenu 1.2.2', icon: 'pi pi-fw pi-bookmark' }
-                            ]
+                                { label: 'Submenu 1.2.2', icon: 'pi pi-fw pi-bookmark' },
+                            ],
                         },
-                        {
-                            label: 'Consulta no arquivo', icon: 'pi pi-fw pi-bookmark', to:'/tableFile',
-                        },
-                    ]
+                        { label: 'Consulta no arquivo', icon: 'pi pi-fw pi-bookmark', to: '/tableFile' },
+                    ],
                 },
                 {
-                    label: 'Painéis e Dashboard', icon: 'pi pi-fw pi-bookmark',
+                    label: 'Painéis e Dashboard',
+                    icon: 'pi pi-fw pi-bookmark',
                     items: [
                         {
-                            label: 'Painel Geral', icon: 'pi pi-fw pi-bookmark', to:'/dashboardPowerBi',
+                            label: 'Painel Geral',
+                            icon: 'pi pi-fw pi-bookmark',
+                            to: '#',
                             items: [
                                 { label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark' },
                                 { label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark' },
                                 { label: 'Submenu 2.1.3', icon: 'pi pi-fw pi-bookmark' },
-                            ]
+                            ],
                         },
                         {
-                            label: 'Submenu 2.2', icon: 'pi pi-fw pi-bookmark',
+                            label: 'Submenu 2.2',
+                            icon: 'pi pi-fw pi-bookmark',
                             items: [
                                 { label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark' },
-                                { label: 'Submenu 2.2.2', icon: 'pi pi-fw pi-bookmark' }
-                            ]
-                        }
-                    ]
-                }
-            ]
+                                { label: 'Submenu 2.2.2', icon: 'pi pi-fw pi-bookmark' },
+                            ],
+                        },
+                    ],
+                },
+            ],
         },
     ];
 
     const addClass = (element, className) => {
-        if (element.classList)
-            element.classList.add(className);
-        else
-            element.className += ' ' + className;
-    }
+        if (element.classList) element.classList.add(className);
+        else element.className += ' ' + className;
+    };
 
     const removeClass = (element, className) => {
-        if (element.classList)
-            element.classList.remove(className);
-        else
-            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-    }
+        if (element.classList) element.classList.remove(className);
+        else element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    };
 
     const wrapperClass = classNames('layout-wrapper', {
         'layout-overlay': layoutMode === 'overlay',
@@ -217,30 +208,31 @@ const App = () => {
         'layout-mobile-sidebar-active': mobileMenuActive,
         'p-input-filled': inputStyle === 'filled',
         'p-ripple-disabled': ripple === false,
-        'layout-theme-light': layoutColorMode === 'light'
+        'layout-theme-light': layoutColorMode === 'light',
     });
 
-    // const isLoginPage = location.pathname === '/login';
+    const isLoginPage = location.pathname === '/login';
 
     return (
         <div className={wrapperClass} onClick={onWrapperClick}>
             <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
 
-            <AppTopbar onToggleMenuClick={onToggleMenuClick} layoutColorMode={layoutColorMode}
-                mobileTopbarMenuActive={mobileTopbarMenuActive} onMobileTopbarMenuClick={onMobileTopbarMenuClick} onMobileSubTopbarMenuClick={onMobileSubTopbarMenuClick} />
+            {!isLoginPage && <AppTopbar onToggleMenuClick={onToggleMenuClick} layoutColorMode={layoutColorMode}
+                mobileTopbarMenuActive={mobileTopbarMenuActive} onMobileTopbarMenuClick={onMobileTopbarMenuClick} onMobileSubTopbarMenuClick={onMobileSubTopbarMenuClick} />}
 
-            <div className="layout-sidebar" onClick={onSidebarClick}>
+            {!isLoginPage && <div className="layout-sidebar" onClick={onSidebarClick}>
                 <AppMenu model={menu} onMenuItemClick={onMenuItemClick} layoutColorMode={layoutColorMode} />
-            </div>
+            </div>}
 
             <div className="layout-main-container">
                 <div className="layout-main">
-                    <Route path="/" exact render={() => <Dashboard colorMode={layoutColorMode} location={location} />} />
-                    <ProtectedRoute path="/uploadForm" component={RetornFile} />
-                    <ProtectedRoute path="/tableFile" component={TableFile} />
-                    <Route path="/login" component={LoginPage} />
-                    <Route path="/register" component={RegisterPage} />
-                    {/* <Route path="/dashboardPowerBi" component={DashboardPowerBI} /> */}
+                    <Switch>
+                        <ProtectedRoute path="/" exact component={Dashboard} />
+                        <ProtectedRoute path="/uploadForm" component={RetornFile} />
+                        <ProtectedRoute path="/tableFile" component={TableFile} />
+                        <Route path="/login" component={LoginPage} />
+                        <Route path="/register" component={RegisterPage} />
+                    </Switch>
                 </div>
 
                 <AppFooter layoutColorMode={layoutColorMode} />
@@ -252,10 +244,8 @@ const App = () => {
             <CSSTransition classNames="layout-mask" timeout={{ enter: 200, exit: 200 }} in={mobileMenuActive} unmountOnExit>
                 <div className="layout-mask p-component-overlay"></div>
             </CSSTransition>
-
         </div>
     );
-
-}
+};
 
 export default App;

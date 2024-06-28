@@ -3,9 +3,11 @@ import axios from 'axios';
 const BackendService = {
     processInconsistencies: async (formData) => {
         try {
-            const response = await axios.post('https://pasteldoreino.com.br/processar_arquivo', formData, {
+            const token = JSON.parse(localStorage.getItem('user')).token;
+            const response = await axios.post('http://127.0.0.1:5000/processar_inconsistencia', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
                 }
             });
             return response;
@@ -17,32 +19,35 @@ const BackendService = {
 
     processErrors: async (formData) => {
         try {
-            const response = await axios.post('https://pasteldoreino.com.br/processar_erros', formData, {
+            const token = JSON.parse(localStorage.getItem('user')).token;
+            const response = await axios.post('http://127.0.0.1:5000/processar_erros', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
                 }
             });
             return response;
         } catch (error) {
             console.error('Erro ao processar erros:', error);
-            throw error;
+            throw error; // Certifique-se de lançar o erro para tratamento adequado no componente que chamou essa função.
         }
     },
 
-
     processFiles: async (formData) => {
         try {
-            const response = await axios.post('https://pasteldoreino.com.br/testes_arquivo', formData, {
+            const token = JSON.parse(localStorage.getItem('user')).token;
+            const response = await axios.post('http://127.0.0.1:5000/testes_arquivo', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
                 }
-            })
+            });
             return response;
         } catch (error) {
             console.error('Erro ao realizar upload:', error);
             throw error;
         }
     }
-}
+};
 
 export default BackendService;
