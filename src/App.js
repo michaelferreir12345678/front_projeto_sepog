@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import { Route, useLocation, Switch } from 'react-router-dom';
+import { Route, useLocation, Switch, Redirect } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
 import { AppTopbar } from './AppTopbar';
@@ -26,6 +26,7 @@ import './App.scss';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProtectedRoute from './components/login/ProtectedRoute';
+import { isAuthenticated } from './service/AuthService';
 
 const App = () => {
     const [layoutMode, setLayoutMode] = useState('static');
@@ -213,6 +214,7 @@ const App = () => {
 
     const isLoginPage = location.pathname === '/login';
 
+    const Pagina = () => {
     return (
         <div className={wrapperClass} onClick={onWrapperClick}>
             <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
@@ -224,20 +226,22 @@ const App = () => {
                 <AppMenu model={menu} onMenuItemClick={onMenuItemClick} layoutColorMode={layoutColorMode} />
             </div>}
 
-            <Route path="/login" component={LoginPage} />
-
-            <div className="layout-main-container">
-                <div className="layout-main">
-                    <Switch>
-                        <ProtectedRoute path="/" exact component={Dashboard} />
-                        <ProtectedRoute path="/uploadForm" component={RetornFile} />
-                        <ProtectedRoute path="/tableFile" component={TableFile} />
-                        <Route path="/register" component={RegisterPage} />
-                    </Switch>
-                </div>
-
-                <AppFooter layoutColorMode={layoutColorMode} />
-            </div>
+            <Switch>
+                <Route>
+                {/* <Route path="/login" component={LoginPage} /> */}
+                    <div className="layout-main-container">
+                        <div className="layout-main">
+                            <ProtectedRoute path="/" exact component={Dashboard} />
+                            <ProtectedRoute path="/uploadForm" component={RetornFile} />
+                            <ProtectedRoute path="/tableFile" component={TableFile} />
+                            <ProtectedRoute path="/register" component={RegisterPage} />
+                            {/* Redirecionamento padrão para rotas não existentes */}
+                            {/* <Redirect to="/login" /> */}
+                        </div>
+                        {!isLoginPage && <AppFooter layoutColorMode={layoutColorMode} />}
+                    </div>
+                </Route>
+            </Switch>
 
             <AppConfig rippleEffect={ripple} onRippleEffect={onRipple} inputStyle={inputStyle} onInputStyleChange={onInputStyleChange}
                 layoutMode={layoutMode} onLayoutModeChange={onLayoutModeChange} layoutColorMode={layoutColorMode} onColorModeChange={onColorModeChange} />
@@ -246,6 +250,17 @@ const App = () => {
                 <div className="layout-mask p-component-overlay"></div>
             </CSSTransition>
         </div>
+    )}
+    
+    return (
+        <div>
+        {
+            isAuthenticated() ?
+            <Pagina/>
+            :
+            <LoginPage/>
+        }
+    </div>        
     );
 };
 
