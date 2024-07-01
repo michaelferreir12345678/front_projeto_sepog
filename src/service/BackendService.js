@@ -4,7 +4,7 @@ const BackendService = {
     processInconsistencies: async (formData) => {
         try {
             const token = JSON.parse(localStorage.getItem('user')).token;
-            const response = await axios.post('http://127.0.0.1:5000/processar_inconsistencia', formData, {
+            const response = await axios.post('https://54.146.161.225/processar_inconsistencia', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
@@ -20,7 +20,7 @@ const BackendService = {
     processErrors: async (formData) => {
         try {
             const token = JSON.parse(localStorage.getItem('user')).token;
-            const response = await axios.post('http://127.0.0.1:5000/processar_erros', formData, {
+            const response = await axios.post('https://54.146.161.225/processar_erros', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
@@ -36,7 +36,7 @@ const BackendService = {
     processFiles: async (formData) => {
         try {
             const token = JSON.parse(localStorage.getItem('user')).token;
-            const response = await axios.post('http://127.0.0.1:5000/processar_arquivo', formData, {
+            const response = await axios.post('https://54.146.161.225/processar_arquivo', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`

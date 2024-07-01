@@ -215,52 +215,51 @@ const App = () => {
     const isLoginPage = location.pathname === '/login';
 
     const Pagina = () => {
-    return (
-        <div className={wrapperClass} onClick={onWrapperClick}>
-            <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
+        return (
+            <div className={wrapperClass} onClick={onWrapperClick}>
+                <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
 
-            {!isLoginPage && <AppTopbar onToggleMenuClick={onToggleMenuClick} layoutColorMode={layoutColorMode}
-                mobileTopbarMenuActive={mobileTopbarMenuActive} onMobileTopbarMenuClick={onMobileTopbarMenuClick} onMobileSubTopbarMenuClick={onMobileSubTopbarMenuClick} />}
+                <AppTopbar onToggleMenuClick={onToggleMenuClick} layoutColorMode={layoutColorMode}
+                    mobileTopbarMenuActive={mobileTopbarMenuActive} onMobileTopbarMenuClick={onMobileTopbarMenuClick} onMobileSubTopbarMenuClick={onMobileSubTopbarMenuClick} />
 
-            {!isLoginPage && <div className="layout-sidebar" onClick={onSidebarClick}>
-                <AppMenu model={menu} onMenuItemClick={onMenuItemClick} layoutColorMode={layoutColorMode} />
-            </div>}
+                <div className="layout-sidebar" onClick={onSidebarClick}>
+                    <AppMenu model={menu} onMenuItemClick={onMenuItemClick} layoutColorMode={layoutColorMode} />
+                </div>
 
-            <Switch>
-                <Route>
-                {/* <Route path="/login" component={LoginPage} /> */}
-                    <div className="layout-main-container">
-                        <div className="layout-main">
-                            <ProtectedRoute path="/" exact component={Dashboard} />
-                            <ProtectedRoute path="/uploadForm" component={RetornFile} />
-                            <ProtectedRoute path="/tableFile" component={TableFile} />
-                            <ProtectedRoute path="/register" component={RegisterPage} />
-                            {/* Redirecionamento padrão para rotas não existentes */}
-                            {/* <Redirect to="/login" /> */}
+                <Switch>
+                    <Route>
+                        <div className="layout-main-container">
+                            <div className="layout-main">
+                                <ProtectedRoute path="/" exact component={Dashboard} />
+                                <ProtectedRoute path="/uploadForm" component={RetornFile} />
+                                <ProtectedRoute path="/tableFile" component={TableFile} />
+                                <ProtectedRoute path="/register" component={RegisterPage} />
+                                {/* Redirecionamento padrão para rotas não existentes */}
+                            </div>
+                            <AppFooter layoutColorMode={layoutColorMode} />
                         </div>
-                        {!isLoginPage && <AppFooter layoutColorMode={layoutColorMode} />}
-                    </div>
-                </Route>
-            </Switch>
+                    </Route>
+                </Switch>
 
-            <AppConfig rippleEffect={ripple} onRippleEffect={onRipple} inputStyle={inputStyle} onInputStyleChange={onInputStyleChange}
-                layoutMode={layoutMode} onLayoutModeChange={onLayoutModeChange} layoutColorMode={layoutColorMode} onColorModeChange={onColorModeChange} />
+                <AppConfig rippleEffect={ripple} onRippleEffect={onRipple} inputStyle={inputStyle} onInputStyleChange={onInputStyleChange}
+                    layoutMode={layoutMode} onLayoutModeChange={onLayoutModeChange} layoutColorMode={layoutColorMode} onColorModeChange={onColorModeChange} />
 
-            <CSSTransition classNames="layout-mask" timeout={{ enter: 200, exit: 200 }} in={mobileMenuActive} unmountOnExit>
-                <div className="layout-mask p-component-overlay"></div>
-            </CSSTransition>
-        </div>
-    )}
-    
+                <CSSTransition classNames="layout-mask" timeout={{ enter: 200, exit: 200 }} in={mobileMenuActive} unmountOnExit>
+                    <div className="layout-mask p-component-overlay"></div>
+                </CSSTransition>
+            </div>
+        )
+    }
+
     return (
         <div>
-        {
-            isAuthenticated() ?
-            <Pagina/>
-            :
-            <LoginPage/>
-        }
-    </div>        
+            {
+                isAuthenticated() ?
+                    <Pagina />
+                    :
+                    <LoginPage />
+            }
+        </div>
     );
 };
 

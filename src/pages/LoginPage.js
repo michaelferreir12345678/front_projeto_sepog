@@ -30,7 +30,7 @@ const LoginPage = () => {
             });
             const { token } = response.data;
             localStorage.setItem('user', JSON.stringify({ token }));
-            history.push('/'); // Redireciona para a página principal após o login
+            history.push('/');
         } catch (error) {
             console.error('Erro ao fazer login:', error);
             setError('Usuário ou senha incorretos.');
