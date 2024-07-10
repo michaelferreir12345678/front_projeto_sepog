@@ -4,8 +4,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ToggleButton } from 'primereact/togglebutton';
 import { Message } from 'primereact/message';
-import { ProgressBar } from 'primereact/progressbar'; // Importa o componente ProgressBar
-import BackendService from '../service/BackendService'; // Importa serviço de backend
+import { ProgressBar } from 'primereact/progressbar';
+import BackendService from '../service/BackendService';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 

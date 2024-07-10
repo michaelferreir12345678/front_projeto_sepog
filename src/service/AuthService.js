@@ -1,5 +1,5 @@
 // src/service/authService.js
-const API_URL = 'http://127.0.0.1:5000';
+const API_URL = 'http://127.0.0.1:5000/';
 
 export const register = async (user) => {
     const response = await fetch(`${API_URL}/register`, {

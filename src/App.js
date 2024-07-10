@@ -27,6 +27,9 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProtectedRoute from './components/login/ProtectedRoute';
 import { isAuthenticated } from './service/AuthService';
+import SalaryImpact from './components/SalaryImpact';
+import Teste_impacto_salarial from './components/Teste_impacto_salarial';
+import ResultPage from './components/ResultPage';
 
 const App = () => {
     const [layoutMode, setLayoutMode] = useState('static');
@@ -234,7 +237,9 @@ const App = () => {
                                 <ProtectedRoute path="/uploadForm" component={RetornFile} />
                                 <ProtectedRoute path="/tableFile" component={TableFile} />
                                 <ProtectedRoute path="/register" component={RegisterPage} />
-                                {/* Redirecionamento padrão para rotas não existentes */}
+                                <Route path="/salary-impact" component={SalaryImpact} />
+                                <Route exact path="/teste_impacto_salarial" component={Teste_impacto_salarial} />
+                                <Route exact path="/results" component={ResultPage}/>
                             </div>
                             <AppFooter layoutColorMode={layoutColorMode} />
                         </div>

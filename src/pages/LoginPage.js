@@ -7,12 +7,14 @@ import { Checkbox } from 'primereact/checkbox';
 // import { Dialog } from 'primereact/dialog';
 import { Toast } from 'primereact/toast';
 import axios from 'axios';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState('');
+    const [showProgressSpinner, setShowProgressSpinner] = useState(false);
     // const [objetoDialog, setObjetoDialog] = useState(false);
     // const [objetoDialogCodigoRecuperarSenha, setObjetoDialogCodigoRecuperarSenha] = useState(false);
     // const [dialogCadastroNovaSenha, setDialogCadastroNovaSenha] = useState(false);
@@ -24,6 +26,7 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setShowProgressSpinner(true);
             const response = await axios.post('http://127.0.0.1:5000/login', {
                 username,
                 password
@@ -34,6 +37,7 @@ const LoginPage = () => {
         } catch (error) {
             console.error('Erro ao fazer login:', error);
             setError('Usuário ou senha incorretos.');
+            setShowProgressSpinner(false);
         }
     };
 
@@ -98,13 +102,23 @@ const LoginPage = () => {
                                 {error && <div className="p-error">{error}</div>}
                                 <Button
                                     type="submit"
-                                    label="Entrar"
-                                    className="w-full p-3 text-xl"
-                                    style={{ backgroundColor: '#ffc107', borderColor: '#ffc107', color: '#000', marginBottom: '10px' }}
+                                    label={
+                                        showProgressSpinner ? (
+                                            <div style={{display: 'inline-block' }}>
+                                                <span style={{ marginRight: '10px' }}>Entrando...</span>
+                                                <ProgressSpinner style={{ width: '15px', height: '15px' }}  fill="#ffc107" animationDuration=".5s" />
+                                            </div>
+                                        ) : (
+                                            'Entrar'
+                                        )
+                                    }
+                                    className="p-button-raised p-button-rounded w-full p-3 text-xl"
+                                    style={{ backgroundColor: '#ffc107', borderColor: '#ffc107', color: '#000', marginBottom: '10px', position: 'relative' }}
+                                    disabled={showProgressSpinner}
                                 />
+                                <span>Copyright© 2024 | Prefeitura de Fortaleza - SEPOG</span>
                             </div>
                         </form>
-                        <span>Copyright© 2024 | Prefeitura de Fortaleza - SEPOG</span>
                     </div>
                 </div>
 
@@ -127,7 +141,7 @@ const LoginPage = () => {
                     </div>
                 </Dialog> */}
             </div>
-            
+
         </div>
     );
 };
