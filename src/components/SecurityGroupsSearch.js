@@ -14,6 +14,8 @@ const GroupSearch = () => {
     const [selectedGroup, setSelectedGroup] = useState(null); 
     const [viewMode, setViewMode] = useState("users"); 
     const [nodes, setNodes] = useState([]);
+    const API_URL = process.env.REACT_APP_BACKEND_URL;
+
 
     const viewOptions = [
         { label: "Usuários", value: "users" },
@@ -22,7 +24,7 @@ const GroupSearch = () => {
 
     const fetchGroups = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:5000/search/groups");
+            const response = await axios.get(`${API_URL}/search/groups`);
             setGroups(response.data);
         } catch (error) {
             console.error("Erro ao buscar grupos: ", error);
@@ -31,7 +33,7 @@ const GroupSearch = () => {
 
     const fetchUsersByGroup = async (groupId) => {
         try {
-            const response = await axios.get(`http://127.0.0.1:5000/search/users/group/${groupId}`);
+            const response = await axios.get(`${API_URL}/search/users/group/${groupId}`);
             convertToTreeTableData(response.data, "users");
         } catch (error) {
             console.error("Erro ao buscar usuários do grupo: ", error);
