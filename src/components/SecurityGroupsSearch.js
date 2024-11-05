@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { TreeTable } from "primereact/treetable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
@@ -22,14 +22,14 @@ const GroupSearch = () => {
         { label: "Funções", value: "functions" },
     ];
 
-    const fetchGroups = async () => {
+    const fetchGroups = useCallback(async () => {
         try {
             const response = await axios.get(`${API_URL}/search/groups`);
             setGroups(response.data);
         } catch (error) {
             console.error("Erro ao buscar grupos: ", error);
         }
-    };
+    }, [API_URL]);
 
     const fetchUsersByGroup = async (groupId) => {
         try {
@@ -42,7 +42,7 @@ const GroupSearch = () => {
 
     const fetchFunctionsByGroup = async (groupId) => {
         try {
-            const response = await axios.get(`http://127.0.0.1:5000/search/functions/group/${groupId}`);
+            const response = await axios.get(`${API_URL}/search/functions/group/${groupId}`);
             convertToTreeTableData(response.data, "functions");
         } catch (error) {
             console.error("Erro ao buscar funções do grupo: ", error);
@@ -155,7 +155,7 @@ const GroupSearch = () => {
 
     useEffect(() => {
         fetchGroups();
-    }, []);
+    }, [fetchGroups]);
 
     return (
         <div className="card">
