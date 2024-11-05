@@ -11,8 +11,9 @@ Este projeto é uma aplicação frontend para o Portal da Folha da Prefeitura de
 - `src/service/`: Lida com a comunicação com o backend, incluindo serviços de autenticação e chamadas de API.
 
 
-### Dependências Principais
-
+### Tecnologia Utilizadas:
+  
+- Este projeto foi desenvolvido em **JavaScript** utilizando o framework **React** para o frontend.
 - `React`: Biblioteca JavaScript para construção de interfaces de usuário.
 - `PrimeReact`: Biblioteca de componentes para design de interfaces de usuário.
 - `Axios`: Utilizada para realizar chamadas HTTP para a API backend.
@@ -26,32 +27,31 @@ Este projeto é uma aplicação frontend para o Portal da Folha da Prefeitura de
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/usuario/repo.git
+   git clone https://github.com/michaelferreir12345678/front_projeto_sepog.git
 
 2. Navegue até o diretório do projeto:
-
-cd portal-da-folha
+   ```bash
+cd frontend_portal
 
 3. Instale as dependências:
-
+   ```bash
 npm install
 
 4. Configure as variáveis de ambiente: Crie um arquivo .env na raiz do projeto e adicione a variável REACT_APP_API_BASE_URL com a URL do backend.
-
+   ```bash
 REACT_APP_API_BASE_URL=https://api.seuservidor.com
 
 5. Execute a aplicação em modo de desenvolvimento:
-
+   ```bash
 npm start
 
 6. Para preparar o projeto para produção, use:
-
+   ```bash
 npm run build
-
 
 ---
 
-### Passo 3: Publicação em Produção
+### Publicação em Produção
 
 #### 1. **Criação do Build de Produção**
 
