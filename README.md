@@ -31,23 +31,23 @@ Este projeto é uma aplicação frontend para o Portal da Folha da Prefeitura de
 
 2. Navegue até o diretório do projeto:
    ```bash
-cd frontend_portal
+   cd frontend_portal
 
 3. Instale as dependências:
    ```bash
-npm install
+   npm install
 
 4. Configure as variáveis de ambiente: Crie um arquivo .env na raiz do projeto e adicione a variável REACT_APP_API_BASE_URL com a URL do backend.
    ```bash
-REACT_APP_API_BASE_URL=https://api.seuservidor.com
+   REACT_APP_API_BASE_URL=https://api.seuservidor.com
 
 5. Execute a aplicação em modo de desenvolvimento:
    ```bash
-npm start
+   npm start
 
 6. Para preparar o projeto para produção, use:
    ```bash
-npm run build
+   npm run build
 
 ---
 
