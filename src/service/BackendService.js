@@ -1,7 +1,7 @@
 import axios from 'axios';
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-// Configure a URL base do axios
-axios.defaults.baseURL = 'http://172.21.245.204:5000/';
+axios.defaults.baseURL = `${backendUrl}`;
 
 const BackendService = {
     processInconsistencies: async (formData) => {
@@ -32,7 +32,7 @@ const BackendService = {
             return response;
         } catch (error) {
             console.error('Erro ao processar erros:', error);
-            throw error; // Certifique-se de lançar o erro para tratamento adequado no componente que chamou essa função.
+            throw error;
         }
     },
 
@@ -52,7 +52,6 @@ const BackendService = {
         }
     },
 
-    // Adicione a nova função para calcular o impacto salarial
     calculateSalaryImpact: async (data) => {
         try {
             const token = JSON.parse(localStorage.getItem('user')).token;
@@ -61,13 +60,69 @@ const BackendService = {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            console.log('Resposta do backend:', response.data); // Adicione esta linha para debug
+            console.log('Resposta do backend:', response.data);
             return response.data;
         } catch (error) {
             console.error('Erro ao calcular impacto salarial:', error);
             throw error;
         }
     },
+
+    globalSearch: async (query) => {
+        try {
+            const token = JSON.parse(localStorage.getItem('user')).token;
+            const response = await axios.get(`/search?q=${query}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            return response;
+        } catch (error) {
+            console.error('Erro ao realizar a pesquisa global:', error);
+            throw error;
+        }
+    },
+
+    searchUsers: async (term) => {
+        try {
+            const response = await axios.get(`/search/users?q=${term}`);
+            return response.data; 
+        } catch (error) {
+            console.error('Erro ao pesquisar usuários:', error);
+            throw error;
+        }
+    },
+
+    searchGroups: async (term) => {
+        try {
+            const response = await axios.get(`/search/groups?q=${term}`);
+            return response.data;
+        } catch (error) {
+            console.error('Erro ao pesquisar grupos:', error);
+            throw error;
+        }
+    },
+
+    searchFunctions: async (groupId) => {
+        try {
+            const response = await axios.get(`/search/functions/${groupId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Erro ao pesquisar funções:', error);
+            throw error;
+        }
+    },
+
+    searchCompanies: async (term) => {
+        try {
+            const response = await axios.get(`/search/companies?q=${term}`);
+            return response.data;
+        } catch (error) {
+            console.error('Erro ao pesquisar empresas:', error);
+            throw error;
+        }
+    },
+    
 };
 
 export default BackendService;

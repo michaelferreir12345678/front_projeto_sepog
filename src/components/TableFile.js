@@ -3,14 +3,14 @@ import { FileUpload } from 'primereact/fileupload';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
-import { ProgressBar } from 'primereact/progressbar'; // Importa o componente ProgressBar
-import BackendService from '../service/BackendService'; // Importa serviço de backend
+import { ProgressBar } from 'primereact/progressbar'; 
+import BackendService from '../service/BackendService'; 
 
 
 const FileUploadComponent = () => {
   const [responseData, setResponseData] = useState(null);
   const [globalFilter, setGlobalFilter] = useState('');
-  const [showProgressBar, setShowProgressBar] = useState(false); // Estado para controlar exibição da ProgressBar
+  const [showProgressBar, setShowProgressBar] = useState(false);
   const fileUploadRef = useRef(null);
 
 
@@ -19,7 +19,6 @@ const FileUploadComponent = () => {
     const files = event.files;
     const formData = new FormData();
 
-    // Adiciona todos os arquivos ao FormData
     for (let i = 0; i < files.length; i++) {
       formData.append('arquivos', files[i]);
     }
@@ -30,7 +29,7 @@ const FileUploadComponent = () => {
       setResponseData(response.data);
     } catch (error) {
       console.error('Erro ao enviar arquivos:', error);
-      setResponseData({ 'dados totais': [] }); // Inicializa com um array vazio em caso de erro
+      setResponseData({ 'dados totais': [] }); 
     } finally {
       setShowProgressBar(false);
     }
@@ -53,7 +52,7 @@ const FileUploadComponent = () => {
     );
 
     const handleCancel = () => {
-      window.location.reload(); // Recarrega a página
+      window.location.reload(); 
     };
 
     const itemTemplate = (file, props) => {

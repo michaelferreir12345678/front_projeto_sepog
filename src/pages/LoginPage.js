@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
@@ -15,11 +16,6 @@ const LoginPage = () => {
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState('');
     const [showProgressSpinner, setShowProgressSpinner] = useState(false);
-    // const [objetoDialog, setObjetoDialog] = useState(false);
-    // const [objetoDialogCodigoRecuperarSenha, setObjetoDialogCodigoRecuperarSenha] = useState(false);
-    // const [dialogCadastroNovaSenha, setDialogCadastroNovaSenha] = useState(false);
-    // const [codigoRecuperarSenha, setCodigoRecuperarSenha] = useState('');
-    // const [novaSenha, setNovaSenha] = useState('');
     const toast = useRef(null);
     const history = useHistory();
 
@@ -41,33 +37,10 @@ const LoginPage = () => {
         }
     };
 
-    // const openNew = () => {
-    //     setObjetoDialog(true);
-    // };
-
-    // const hideDialog = () => {
-    //     setObjetoDialog(false);
-    //     setObjetoDialogCodigoRecuperarSenha(false);
-    //     setDialogCadastroNovaSenha(false);
-    // };
-
-    // const objetoDialogFooter = (
-    //     <Button label="Enviar" icon="pi pi-check" onClick={() => setObjetoDialogCodigoRecuperarSenha(true)} />
-    // );
-
-    // const objetoCodigoRecuperarSenhaFooter = (
-    //     <Button label="Enviar" icon="pi pi-check" onClick={() => setDialogCadastroNovaSenha(true)} />
-    // );
-
-    // const objetoEnvioNovaSenhaFooter = (
-    //     <Button label="Salvar" icon="pi pi-check" onClick={() => toast.current.show({ severity: 'success', summary: 'Senha alterada', detail: 'Sua senha foi alterada com sucesso!' })} />
-    // );
-
     return (
         <div>
             <div className="flex flex-column align-items-center justify-content-center">
                 <Toast ref={toast} />
-                {/* <img src='assets/layout/images/logo-pref.png' style={{ marginBottom: '10px', borderRadius: '10px' }} /> */}
                 <div style={{ marginTop: '10px', borderRadius: '56px', padding: '0.3rem', background: 'linear-gradient(180deg, #ffc107 10%, rgba(33, 150, 243, 0) 30%)' }}>
                     <div className="w-full surface-card py-8 px-5 sm:px-8" style={{ borderRadius: '53px' }}>
                         <div className="text-center mb-5">
@@ -95,9 +68,6 @@ const LoginPage = () => {
                                             Lembrar de mim
                                         </label>
                                     </div>
-                                    {/* <a onClick={openNew} className="font-medium no-underline ml-2 text-right cursor-pointer" style={{ color: 'var(--primary-color)' }}>
-                                        Esqueceu sua senha?
-                                    </a> */}
                                 </div>
                                 {error && <div className="p-error">{error}</div>}
                                 <Button
@@ -121,25 +91,6 @@ const LoginPage = () => {
                         </form>
                     </div>
                 </div>
-
-                {/* <Dialog visible={objetoDialog} style={{ width: '450px' }} header="Recuperar Senha" modal className="p-fluid" footer={objetoDialogFooter} onHide={hideDialog}>
-                    <div className="field">
-                        <label htmlFor="email">Insira seu email cadastrado</label>
-                        <InputText type="email" id="email" onChange={(e) => setUsername(e.target.value)} required autoFocus />
-                    </div>
-                </Dialog>
-                <Dialog visible={objetoDialogCodigoRecuperarSenha} style={{ width: '450px' }} header="Código de recuperação" modal className="p-fluid" footer={objetoCodigoRecuperarSenhaFooter} onHide={hideDialog}>
-                    <div className="field">
-                        <label required htmlFor="email">Insira o código enviado para seu email</label>
-                        <InputText required type="text" id="text" onChange={(e) => setCodigoRecuperarSenha(e.target.value)} autoFocus />
-                    </div>
-                </Dialog>
-                <Dialog visible={dialogCadastroNovaSenha} style={{ width: '450px' }} header="Nova senha: " modal className="p-fluid" footer={objetoEnvioNovaSenhaFooter} onHide={hideDialog}>
-                    <div className="field">
-                        <label required htmlFor="email">Insira sua nova senha: </label>
-                        <Password required type="password" id="password" onChange={(e) => setNovaSenha(e.target.value)} autoFocus />
-                    </div>
-                </Dialog> */}
             </div>
 
         </div>

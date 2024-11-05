@@ -4,8 +4,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ToggleButton } from 'primereact/togglebutton';
 import { Message } from 'primereact/message';
-import { ProgressBar } from 'primereact/progressbar'; // Importa o componente ProgressBar
-import BackendService from '../service/BackendService'; // Importa serviço de backend
+import { ProgressBar } from 'primereact/progressbar'; 
+import BackendService from '../service/BackendService';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -20,36 +20,31 @@ const UploadForm = () => {
   const [showWarningMessageErro, setShowWarningMessageErro] = useState(false);
   const [showSuccessMessageErro, setShowSuccessMessageErro] = useState(false);
   const [showWarningMessage, setShowWarningMessage] = useState(false);
-  const [showProgressBar, setShowProgressBar] = useState(false); // Estado para controlar exibição da ProgressBar
+  const [showProgressBar, setShowProgressBar] = useState(false);
   const fileUploadRef = useRef(null);
 
   const onUpload = async (e) => {
     const files = e.files;
     const formData = new FormData();
 
-    // Adiciona todos os arquivos ao FormData
     for (let i = 0; i < files.length; i++) {
       formData.append('arquivos', files[i]);
     }
 
     try {
-      setShowProgressBar(true); // Mostra a ProgressBar ao iniciar o upload
+      setShowProgressBar(true); 
 
       setLoading(true);
 
-      // Chama o serviço para processar os erros
       const responseErros = await BackendService.processErrors(formData);
       setLoadingErros(true);
 
-      // Chama o serviço para processar os arquivos
       const responseArquivos = await BackendService.processInconsistencies(formData);
       setLoadingErros(false);
 
-      // Dentro do bloco try, após a atualização dos estados com os resultados
       setResults(responseArquivos.data.nomes_inconsistentes);
       setErros(responseErros.data.erros);
 
-      // Exibe mensagem de sucesso se não houver inconsistências nos arquivos
       if (responseArquivos.data.nomes_inconsistentes.length === 0) {
         setShowSuccessMessage(true);
         setShowWarningMessage(false);
@@ -58,7 +53,6 @@ const UploadForm = () => {
         setShowWarningMessage(true);
       }
 
-      // Exibe mensagem de sucesso se não houver erros no processamento dos erros
       if (responseErros.data.erros.length === 0) {
         setShowSuccessMessageErro(true);
         setShowWarningMessageErro(false);
@@ -75,12 +69,12 @@ const UploadForm = () => {
     } finally {
       setLoading(false);
       setLoadingErros(false);
-      setShowProgressBar(false); // Esconde a ProgressBar ao finalizar o upload
+      setShowProgressBar(false); 
     }
   };
 
   const handleCancel = () => {
-    window.location.reload(); // Recarrega a página
+    window.location.reload(); 
   };
 
   const itemTemplate = (file, props) => {
@@ -113,17 +107,14 @@ const UploadForm = () => {
   const generatePDF = () => {
     const doc = new jsPDF();
 
-    // Adiciona título
     doc.setFontSize(18);
     doc.text('Relatório de Inconsistências e Erros', 14, 22);
 
-    // Estilos para os cabeçalhos das tabelas
     const headStyles = {
-      fillColor: [255, 193, 7], // RGB da cor desejada (azul neste caso)
-      textColor: [255, 255, 255] // Cor do texto (branco neste caso)
+      fillColor: [255, 193, 7], 
+      textColor: [255, 255, 255] 
     };
 
-    // Adiciona tabela de erros
     if (erros.length > 0) {
       doc.setFontSize(14);
       doc.text('Resultado da Vala', 14, 32);
@@ -143,7 +134,6 @@ const UploadForm = () => {
       });
     }
 
-    // Adiciona tabela de inconsistências
     if (results.length > 0) {
       const startY = doc.previousAutoTable ? doc.previousAutoTable.finalY + 10 : 36;
       doc.setFontSize(14);

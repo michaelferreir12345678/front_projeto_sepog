@@ -1,5 +1,4 @@
-// src/service/authService.js
-const API_URL = 'http://127.0.0.1:5000/';
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const register = async (user) => {
     const response = await fetch(`${API_URL}/register`, {
@@ -40,5 +39,5 @@ export const getProfile = async () => {
 
 export const isAuthenticated = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    return user && user.token;
+    return !!user && !!user.token;
 };

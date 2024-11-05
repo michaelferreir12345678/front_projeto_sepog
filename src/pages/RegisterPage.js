@@ -12,8 +12,6 @@ const RegisterPage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            // Chamada para o serviço de registro (não implementado aqui)
-            // const response = await registerUser(username, password);
             history.push('/login');
         } catch (error) {
             setError('Registration failed. Please try again.');
