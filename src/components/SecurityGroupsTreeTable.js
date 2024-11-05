@@ -10,11 +10,13 @@ const UserTreeTable = () => {
     const [users, setUsers] = useState([]);
     const [treeTableData, setTreeTableData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const API_URL = process.env.REACT_APP_BACKEND_URL;
+
 
     const fetchData = async (query) => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://127.0.0.1:5000/search/users?q=${query}`);
+            const response = await axios.get(`${API_URL}/search/users?q=${query}`);
             setUsers(response.data);
         } catch (error) {
             console.error("Erro ao buscar dados: ", error);

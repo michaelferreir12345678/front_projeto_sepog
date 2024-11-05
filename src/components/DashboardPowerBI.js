@@ -21,7 +21,7 @@ const DashboardPowerBi = () => {
     <div style={containerStyle}>
       <iframe
         title="Dashboard Projetos_laytout_alterado"
-        src="https://app.powerbi.com/reportEmbed?reportId=165176f4-e259-4ec9-a216-bab0242b7af6&autoAuth=true&ctid=be9f9bae-16d0-4c87-9a03-b4383267a337"
+        src="#"
         style={iframeStyle}
         allowFullScreen={true}
       ></iframe>

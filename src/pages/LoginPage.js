@@ -18,12 +18,14 @@ const LoginPage = () => {
     const [showProgressSpinner, setShowProgressSpinner] = useState(false);
     const toast = useRef(null);
     const history = useHistory();
+    const API_URL = process.env.REACT_APP_BACKEND_URL;
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             setShowProgressSpinner(true);
-            const response = await axios.post('http://127.0.0.1:5000/login', {
+            const response = await axios.post(`${API_URL}/login`, {
                 username,
                 password
             });
